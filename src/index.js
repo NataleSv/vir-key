@@ -30,16 +30,16 @@ wrapVirtualKeyboard.append(virtualKeyboard);
 let language = document.querySelector('html').lang;
 
 if(language === 'en') {
-   lang(engLang);
+   lang(engLang,"value");
 } else if(language === 'ru') {
-   lang(ruLang);
+   lang(ruLang, "value");
 }
 
 //добавление кнопок
 
-function lang (lang) {
+function lang (lang, value) {
    for(let i = 0; i < lang.length; i++) {
-      let btn = (new SimpleButtons(lang[i]["value"], lang[i]["valueShift"], lang[i]["btnName"])).createButton();
+      let btn = (new SimpleButtons(lang[i][value], lang[i]["btnName"], lang[i]["code"] )).createButton();
       virtualKeyboard.append(btn);
    }
 }
@@ -47,8 +47,49 @@ function lang (lang) {
 // вывод value кнопок
 
 
+document.onkeydown = function (event) {
+   console.log(event);
+}
+
+let btn = document.querySelectorAll('.btn');
+
+document.addEventListener('keydown', function(event) {
+   let activeBtn = document.querySelector('#'+event.code);
+   activeBtn.classList.add('active');
+   textarea.focus();
+   if(event.shiftKey === true) {
+            for (let i = 0; i < btn.length; i++) {
+               for (let j = 0; j < engLang.length; j++) {
+                  if (btn[i].id === engLang[j]['code']) {
+                     btn[i].innerHTML = engLang[j]['valueShift'];
+                  }
+               }
+         }
+      }
+});
+
+document.onkeyup = function (event) {
+   console.log(event);
+}
+document.addEventListener('keyup', function(event) {
+
+   let activeBtn = document.querySelector('.active');
+   activeBtn.classList.remove('active');
+
+   if(event.shiftKey === false) {
+      for (let i = 0; i < btn.length; i++) {
+         for (let j = 0; j < engLang.length; j++) {
+            if (btn[i].id === engLang[j]['code']) {
+               btn[i].innerHTML = engLang[j]['value'];
+            }
+         }
+      }
+   }
+
+});
 
 
+//события мыши
 
 
 
