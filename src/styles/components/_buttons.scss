@@ -4,16 +4,21 @@
   background-color: $primary-color;
   border: 1px solid $color-light-m;
   color: $color-light-l;
-  &:hover {
+  transition: all .7s;
+  &:not(.active):hover {
     background-color: $primary-color-light;
     cursor: pointer;
   }
 }
 .active {
   background-color: $primary-color-darken;
+  border-radius: 30%;
+  transition: all .7s;
 }
 
-
+.hidden {
+  display:none;
+}
 
 
 
@@ -259,6 +264,7 @@
     color: $primary-color-darken;
   }
 }
+
 
 .alt-r {
   grid-area: alt-r;
